@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NT.ECommerce.Domain", "NT.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NT.ECommerce.Application", "NT.ECommerce.Application\NT.ECommerce.Application.csproj", "{C73AB402-527E-4463-8BFF-77AF6B9E53C3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6975EB85-5953-4B7A-8ACD-1B0D01C9AF58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NT.ECommerce.Persistance", "NT.ECommerce.Persistance\NT.ECommerce.Persistance.csproj", "{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,10 @@ Global
 		{C73AB402-527E-4463-8BFF-77AF6B9E53C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C73AB402-527E-4463-8BFF-77AF6B9E53C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C73AB402-527E-4463-8BFF-77AF6B9E53C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,6 +43,8 @@ Global
 		{B67F0B31-0DEA-46FE-91EE-8AB71320FDF2} = {D145E440-92AF-4361-8F21-6C97C783B241}
 		{531735D6-D93B-4F7E-994C-71EDF60FD8C5} = {B67F0B31-0DEA-46FE-91EE-8AB71320FDF2}
 		{C73AB402-527E-4463-8BFF-77AF6B9E53C3} = {B67F0B31-0DEA-46FE-91EE-8AB71320FDF2}
+		{6975EB85-5953-4B7A-8ACD-1B0D01C9AF58} = {D145E440-92AF-4361-8F21-6C97C783B241}
+		{CA9E09FD-2DCF-4352-8E00-84A738ADB2A0} = {6975EB85-5953-4B7A-8ACD-1B0D01C9AF58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4197BD3C-C7D3-4152-87EF-DCE2451E64F2}

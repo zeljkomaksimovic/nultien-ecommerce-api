@@ -24,7 +24,7 @@ namespace NT.ECommerce.Application.Features.Products.Handlers.Query
 
         public async Task<List<ProductDto>> Handle(GetProductsListRequest request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAll();
+            var products = await _productRepository.GetAllAsync();
             return _mapper.Map<List<ProductDto>>(products);
         }
     }

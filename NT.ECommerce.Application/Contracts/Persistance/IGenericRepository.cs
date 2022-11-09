@@ -9,7 +9,7 @@ namespace NT.ECommerce.Application.Contracts.Persistance
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<List<CustomerDto>> GetAll();
-        Task<T> Add(T entity);
+        Task<List<T>> GetAllAsync();
+        Task<T> AddAsync(T entity);
     }
 }

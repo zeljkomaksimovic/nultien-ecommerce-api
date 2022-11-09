@@ -24,7 +24,7 @@ namespace NT.ECommerce.Application.Features.Customers.Handlers.Query
 
         public async Task<List<CustomerDto>> Handle(GetCustomersListRequest request, CancellationToken cancellationToken)
         {
-            var customers = await _customerRepository.GetAll();
+            var customers = await _customerRepository.GetAllAsync();
             return _mapper.Map<List<CustomerDto>>(customers);
         }
     }

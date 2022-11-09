@@ -24,7 +24,7 @@ namespace NT.ECommerce.Application.Features.Orders.Handler.Queries
 
         public async Task<List<OrderDto>> Handle(GetOrdersListRequest request, CancellationToken cancellationToken)
         {
-            var orders = await _orderRepository.GetAll();
+            var orders = await _orderRepository.GetAllAsync();
             return _mapper.Map<List<OrderDto>>(orders);
         }
     }
