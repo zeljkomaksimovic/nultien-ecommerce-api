@@ -9,5 +9,6 @@ namespace NT.ECommerce.Application.Contracts.Persistance
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
+        Task SeedCustomerData();
     }
 }
