@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using NT.ECommerce.Application.Contracts.Persistance;
+using NT.ECommerce.Application.Contracts.Persistence;
 using NT.ECommerce.Application.DTOs.Product.Validators;
 using NT.ECommerce.Application.Features.Products.Requests.Command;
 using NT.ECommerce.Application.Responses;
@@ -30,20 +30,20 @@ namespace NT.ECommerce.Application.Features.Products.Handlers.Command
             var validator = new CreateProductDtoValidator();
             var validate = await validator.ValidateAsync(request.CreateProductDto!);
 
-            if (validate.IsValid is false)
-            {
-                response.Success = false;
-                response.Message = "Failed to create Customer.";
-                response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
-            }
-            else
+            if (validate.IsValid is true)
             {
                 var product = _mapper.Map<Product>(request.CreateProductDto!);
                 product = await _productRepository.AddAsync(product);
 
+                response.Success = true;
+                response.Message = "Product is Successfuly created.";
+                response.Id = product.Id;            
+            }
+            else
+            {
                 response.Success = false;
-                response.Message = "Customer is Successfuly created.";
-                response.Id = product.Id;
+                response.Message = "Failed to create Product.";
+                response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
             }
 
             return response;

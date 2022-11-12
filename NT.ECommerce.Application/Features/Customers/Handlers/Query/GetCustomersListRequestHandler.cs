@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using NT.ECommerce.Application.Contracts.Persistance;
+using NT.ECommerce.Application.Contracts.Persistence;
 using NT.ECommerce.Application.DTOs.Customer;
 using NT.ECommerce.Application.Features.Customers.Requests.Query;
 using System;

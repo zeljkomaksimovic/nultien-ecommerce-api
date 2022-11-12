@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.Extensions.EnumMapping;
 using NT.ECommerce.Application.DTOs.Customer;
 using NT.ECommerce.Application.DTOs.Order;
 using NT.ECommerce.Application.DTOs.Product;
+using NT.ECommerce.Application.DTOs.ShoppingCart;
+using NT.ECommerce.Application.Enums;
 using NT.ECommerce.Domain;
 using System;
 using System.Collections.Generic;
@@ -21,9 +24,15 @@ namespace NT.ECommerce.Application.Profiles
             #endregion Customer
 
             #region Product Mappings
-            CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Product, CreateProductDto>().ReverseMap();
+            CreateMap<Product, ProductDto>()
+                .ReverseMap();
+            CreateMap<Product, CreateProductDto>()
+                .ReverseMap();
             #endregion Customer
+
+            #region ShoppingCart Mappings
+            CreateMap<ShoppingCart, ShoppingCartDto>().ReverseMap();
+            #endregion ShoppingCart
 
             #region Order Mappings
             CreateMap<Order, OrderDto>().ReverseMap();

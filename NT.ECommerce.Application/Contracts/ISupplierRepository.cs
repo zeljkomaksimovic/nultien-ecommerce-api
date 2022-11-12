@@ -1,4 +1,4 @@
-﻿using NT.ECommerce.Application.Models;
+﻿using NT.ECommerce.Application.DTOs.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace NT.ECommerce.Application.Contracts
 {
-    public interface IAddProductToCartService
+    public interface ISupplierRepository
     {
-        Task<AddToCartResponse> AddProduct(AddToCartRequest request);
+        ProductDto GetSupplierStocksOfProduct(int id, int quantity);
     }
 }

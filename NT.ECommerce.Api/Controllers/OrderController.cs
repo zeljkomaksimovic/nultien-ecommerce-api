@@ -30,7 +30,7 @@ namespace NT.ECommerce.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<CommandResponse>> AddAsync([FromBody] CreateOrderDto createOrderDto)
         {
-            var response = await _mediator.Send(new CreateOrderCommand { CreateOrderDto = createOrderDto });
+            var response = await _mediator.Send(new CreateOrdersCommand { CreateOrderDto = createOrderDto });
             return Ok(response);
         }
     }

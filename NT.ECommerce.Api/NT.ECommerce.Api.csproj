@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NT.ECommerce.Application\NT.ECommerce.Application.csproj" />
-    <ProjectReference Include="..\NT.ECommerce.Persistance\NT.ECommerce.Persistance.csproj" />
+    <ProjectReference Include="..\NT.ECommerce.Persistence\NT.ECommerce.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

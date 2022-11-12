@@ -13,15 +13,11 @@ namespace NT.ECommerce.Application.DTOs.Customer.Validators
         public CreateCustomerDtoValidator()
         {
             RuleFor(c => c.FirstName)
-                .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparasionValue} characters.")
+                .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.")
                 .NotEmpty().WithMessage("{PropertyName} cannot be null or empty.");
 
             RuleFor(c => c.LastName)
-                .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparasionValue} characters.")
-                .NotEmpty().WithMessage("{PropertyName} cannot be null or empty.");
-
-            RuleFor(c => c.PhoneNumber)
-                .Must(s => s!.StartsWith("+")).WithMessage("{PropertyName} must start with '+' character")
+                .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.")
                 .NotEmpty().WithMessage("{PropertyName} cannot be null or empty.");
         }
     }

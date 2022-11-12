@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using NT.ECommerce.Application.Contracts.Persistance;
+using NT.ECommerce.Application.Contracts.Persistence;
 using NT.ECommerce.Application.DTOs.Customer.Validators;
 using NT.ECommerce.Application.Features.Customers.Requests.Command;
 using NT.ECommerce.Application.Responses;
@@ -30,20 +30,20 @@ namespace NT.ECommerce.Application.Features.Customers.Handlers.Command
             var validator = new CreateCustomerDtoValidator();
             var validate = await validator.ValidateAsync(request.CreateCustomerDto!);
 
-            if (validate.IsValid is false)
-            {
-                response.Success = false;
-                response.Message = "Failed to create Customer.";
-                response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
-            }
-            else
+            if (validate.IsValid is true)
             {
                 var customer = _mapper.Map<Customer>(request.CreateCustomerDto!);
                 customer = await _customerRepository.AddAsync(customer);
 
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Customer is Successfuly created.";
                 response.Id = customer.Id;
+            }
+            else
+            {            
+                response.Success = false;
+                response.Message = "Failed to create Customer.";
+                response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
             }
         
             return response;

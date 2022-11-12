@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NT.ECommerce.Application.Contracts.Persistance;
+using NT.ECommerce.Application.Contracts.Persistence;
 using NT.ECommerce.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NT.ECommerce.Persistance.Services
+namespace NT.ECommerce.Persistence.Data
 {
     public static class SeedData
     {
@@ -51,8 +51,9 @@ namespace NT.ECommerce.Persistance.Services
                          {
                              Id = 1,
                              Name = "Hoodie",
-                             Quantity = 2,
+                             Quantity = 0,
                              UnitPrice = 2490.90m,
+                             StorageType = 1,
                              CreatedBy = "zmaksimovic",
                              DateCreated = DateTime.Now,
                              Status = true
@@ -63,6 +64,7 @@ namespace NT.ECommerce.Persistance.Services
                             Name = "T-Shirt",
                             Quantity = 2,
                             UnitPrice = 1390.90m,
+                            StorageType= 1,
                             CreatedBy = "zmaksimovic",
                             DateCreated = DateTime.Now,
                             Status = true

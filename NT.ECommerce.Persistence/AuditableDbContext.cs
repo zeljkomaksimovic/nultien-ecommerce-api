@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NT.ECommerce.Persistance
+namespace NT.ECommerce.Persistence
 {
     public class AuditableDbContext : DbContext
     {

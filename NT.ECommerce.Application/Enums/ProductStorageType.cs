@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NT.ECommerce.Application.Models
+namespace NT.ECommerce.Application.Enums
 {
-    public class AddToCartResponse
+    public enum ProductStorageType
     {
+        Local = 1,
+        Supplier =2
     }
 }

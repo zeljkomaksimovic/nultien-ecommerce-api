@@ -10,12 +10,14 @@ namespace NT.ECommerce.Domain
 {
     public class Order : BaseDomainEntity
     {
-        public int Amount { get; set; }
-        [Column(TypeName = "decimal (18,2)")]
-        public decimal AppliedDiscount { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? AppliedDiscount { get; set; }
+        public string? City { get; set; }
+        public string? Street { get; set; }
+        public string? HouseNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
-        public int ProductId { get; set; }
-        public Product? Product { get; set; }
+        public List<OrderProducts>? OrderProducts { get; set; } = new();
     }
 }

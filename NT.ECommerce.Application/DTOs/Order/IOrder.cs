@@ -10,8 +10,10 @@ namespace NT.ECommerce.Application.DTOs.Order
 {
     public interface IOrder
     {
-        public int Amount { get; set; }
-        public decimal AppliedDiscount { get; set; }
-        public Address? Address { get; set; }
+        public int CustomerId { get; set; }
+        public string? City { get; set; }
+        public string? Street { get; set; }
+        public string? HouseNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

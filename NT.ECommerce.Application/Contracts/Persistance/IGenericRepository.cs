@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NT.ECommerce.Application.Contracts.Persistance
+namespace NT.ECommerce.Application.Contracts.Persistence
 {
     public interface IGenericRepository<T> where T : class
     {

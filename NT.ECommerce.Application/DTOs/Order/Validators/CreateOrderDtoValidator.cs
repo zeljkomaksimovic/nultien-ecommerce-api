@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using NT.ECommerce.Application.Contracts.Persistance;
+using NT.ECommerce.Application.Contracts.Persistence;
 using NT.ECommerce.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,15 +12,19 @@ namespace NT.ECommerce.Application.DTOs.Order.Validators
 {
     public class CreateOrderDtoValidator : AbstractValidator<CreateOrderDto>
     {
-        public CreateOrderDtoValidator()
+        public CreateOrderDtoValidator(ICustomerRepository customerRepository)
         {
-            RuleFor(o => o.AppliedDiscount)
-                .NotNull().WithMessage("{PropertyName} cannot be null.");
+            RuleFor(o => o.City)
+           .NotEmpty().WithMessage("{PropertyName} cannot be null.");
 
-            RuleFor(o => o.Amount)
-                .GreaterThan(0).WithMessage("{PropertyName} must be greather then {ComparasionValue}")
-                .NotNull().WithMessage("{PropertyName} cannot be null.");
+            RuleFor(o => o.Street)
+                .NotEmpty().WithMessage("{PropertyName} cannot be null.");
 
+            RuleFor(o => o.PhoneNumber)
+                .NotEmpty().WithMessage("{PropertyName} cannot be null.");
+
+            RuleFor(o => o.CustomerId)
+                .MustAsync(async (id, token) => await customerRepository.ExistsAsync(id)).WithMessage("{PropertyName} does not exist.");
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NT.ECommerce.Application.Contracts.Persistance;
 using NT.ECommerce.Application.DTOs.Product;
 using NT.ECommerce.Application.Features.Products.Requests.Command;
 using NT.ECommerce.Application.Features.Products.Requests.Query;
