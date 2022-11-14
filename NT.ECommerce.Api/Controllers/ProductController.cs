@@ -40,7 +40,7 @@ namespace NT.ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CommandResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommandResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         [HttpPost]

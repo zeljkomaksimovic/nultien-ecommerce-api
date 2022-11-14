@@ -42,7 +42,7 @@ namespace NT.ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OrderCommandResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrderCommandResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<OrderCommandResponse>> AddAsync([FromBody] CreateOrderDto createOrderDto)
