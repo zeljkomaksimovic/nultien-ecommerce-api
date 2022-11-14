@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NT.ECommerce.Application.Features.Orders.Handler.Command
 {
-    public class CreateOrdersCommandHandler : IRequestHandler<CreateOrdersCommand, CommandResponse>
+    public class CreateOrdersCommandHandler : IRequestHandler<CreateOrdersCommand, OrderCommandResponse>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerRepository _customerRepository;
@@ -33,50 +33,47 @@ namespace NT.ECommerce.Application.Features.Orders.Handler.Command
             _mapper = mapper;
         }
 
-        public async Task<CommandResponse> Handle(CreateOrdersCommand request, CancellationToken cancellationToken)
+        public async Task<OrderCommandResponse> Handle(CreateOrdersCommand request, CancellationToken cancellationToken)
         {
-            var response = new CommandResponse();
+            var response = new OrderCommandResponse();
             var customerExists = await _customerRepository.ExistsAsync(request.CreateOrderDto!.CustomerId);
-            var validator = new CreateOrderDtoValidator(_customerRepository);
-            var validate = await validator.ValidateAsync(request.CreateOrderDto);
+            var validator = new CreateOrderDtoValidator(_customerRepository, _shoppingCartRepository);
+            var validationResult = await validator.ValidateAsync(request.CreateOrderDto);
 
-            if (validate.IsValid is true)
+            if (validationResult.IsValid is true)
             {
                 var order = _mapper.Map<Order>(request.CreateOrderDto);
                 var customerCartItems = await _shoppingCartRepository.GetCustomerCartItems(request.CreateOrderDto.CustomerId);
-                if(customerCartItems.Any() is true)
+
+                //TODO:Moved-> This line of code moved from CalculateDiscount
+                customerCartItems.ForEach(c => order.OrderProducts!.Add(new() { Product = c.Product }));
+                order.Amount = customerCartItems.Sum(x => x.Product!.UnitPrice * x.Quantity);
+                order = CalculateDiscount(order, customerCartItems);
+                //TODO: Check why does not insert data in dbo.OrderProducts
+                order = await _orderRepository.AddAsync(order);
+
+                if (order is not null)
                 {
-                    order.Amount = customerCartItems.Sum(x => x.Product!.UnitPrice);
-                    order = CalculateDiscount(order, customerCartItems);
-                    //TODO: Check why does not insert data in dbo.OrderProducts
-                    order = await _orderRepository.AddAsync(order);
+                    await _shoppingCartRepository.RemoveShoppingCartItems(customerCartItems);
 
-                    if (order is not null)
-                    {
-                        await _shoppingCartRepository.EmptyShoppingCart(customerCartItems);
-
-                        response.Id = order.Id;
-                        response.Success = true;
-                        response.Message = "Order is Successfuly created.";
-                    }
-                    else
-                    {
-                        response.Success = false;
-                        response.Message = "Failed to create Order.";
-                    }
+                    response.Id = order.Id;
+                    //TODO:Add Total amount and discount response properies
+                    response.TotalAmount = order.Amount;
+                    response.AppliedDiscount = order.AppliedDiscount;
+                    response.Success = true;
+                    response.Message = "Order is Successfuly created.";
                 }
                 else
                 {
                     response.Success = false;
-                    response.Message = "Failed to create Order. Shoping cart is empty.";
-                    response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
+                    response.Message = "Failed to create Order.";
                 }
             }
             else
             {
                 response.Success = false;
-                response.Message = "Failed to create Order. Customer does not exists.";
-                response.Errors = validate.Errors.Select(q => q.ErrorMessage).ToList();
+                response.Message = "Failed to create Order.";
+                response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
             }
 
             return response;
@@ -85,12 +82,7 @@ namespace NT.ECommerce.Application.Features.Orders.Handler.Command
         private Order CalculateDiscount(Order order, List<ShoppingCart> customerCartItems)
         {
             if (DateTime.Now.TimeOfDay >= new TimeSpan(16, 0, 0) && DateTime.Now.TimeOfDay <= new TimeSpan(17, 0, 0))
-            {               
-                customerCartItems.ForEach(c =>
-                {
-                    order.OrderProducts!.Add(new() { Product = c.Product });
-                });
-
+            {
                 int lastDigit;
 
                 if (int.TryParse(order.PhoneNumber!.Substring(order.PhoneNumber.Length - 1), out lastDigit))

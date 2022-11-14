@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NT.ECommerce.Application.Exceptions
 {
-    public class ValidationException
+    public class ValidationException : ApplicationException
     {
        public List<string> Errors = new List<string>();
         public ValidationException(ValidationResult validationResult)

@@ -17,9 +17,4 @@
     <ProjectReference Include="..\NT.ECommerce.Domain\NT.ECommerce.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\ShoppingCarts\Handlers\Query\" />
-    <Folder Include="Features\ShoppingCarts\Requests\Query\" />
-  </ItemGroup>
-
 </Project>

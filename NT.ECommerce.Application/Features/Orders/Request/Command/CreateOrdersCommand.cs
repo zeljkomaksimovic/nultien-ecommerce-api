@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NT.ECommerce.Application.Features.Orders.Request.Command
 {
-    public class CreateOrdersCommand : IRequest<CommandResponse>
+    public class CreateOrdersCommand : IRequest<OrderCommandResponse>
     {
         public CreateOrderDto? CreateOrderDto { get; set; }
     }

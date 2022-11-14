@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace NT.ECommerce.Application.Responses
 {
-    public class CommandResponse : BaseCommandResponse
+    public class OrderCommandResponse : BaseCommandResponse
     {
+        public decimal? TotalAmount { get; set; }
+        public decimal? AppliedDiscount { get; set; }
+
     }
 }

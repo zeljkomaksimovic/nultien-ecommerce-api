@@ -12,7 +12,7 @@ namespace NT.ECommerce.Application.DTOs.Order.Validators
 {
     public class CreateOrderDtoValidator : AbstractValidator<CreateOrderDto>
     {
-        public CreateOrderDtoValidator(ICustomerRepository customerRepository)
+        public CreateOrderDtoValidator(ICustomerRepository customerRepository, IShoppingCartRepository shoppingCartRepository)
         {
             RuleFor(o => o.City)
            .NotEmpty().WithMessage("{PropertyName} cannot be null.");
@@ -24,7 +24,9 @@ namespace NT.ECommerce.Application.DTOs.Order.Validators
                 .NotEmpty().WithMessage("{PropertyName} cannot be null.");
 
             RuleFor(o => o.CustomerId)
-                .MustAsync(async (id, token) => await customerRepository.ExistsAsync(id)).WithMessage("{PropertyName} does not exist.");
+                .MustAsync(async (id, token) => await customerRepository.ExistsAsync(id)).WithMessage("{PropertyName} does not exist.")
+                .MustAsync(async (id, token) => await shoppingCartRepository.IsShoppingCartEmptyAsync(id)).WithMessage("Customer's shopping cart is empty.");
+
         }
     }
 }

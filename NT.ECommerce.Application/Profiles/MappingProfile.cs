@@ -32,6 +32,7 @@ namespace NT.ECommerce.Application.Profiles
 
             #region ShoppingCart Mappings
             CreateMap<ShoppingCart, ShoppingCartDto>().ReverseMap();
+            CreateMap<ShoppingCart, CreateShoppingCartDto>().ReverseMap();
             #endregion ShoppingCart
 
             #region Order Mappings

@@ -12,6 +12,7 @@ namespace NT.ECommerce.Application.Contracts.Persistance
     public interface IShoppingCartRepository : IGenericRepository<ShoppingCart>
     {
         Task<List<ShoppingCart>> GetCustomerCartItems(int customerId);
-        Task EmptyShoppingCart(List<ShoppingCart> shoppingCarts);
+        Task RemoveShoppingCartItems(List<ShoppingCart> shoppingCarts);
+        Task<bool> IsShoppingCartEmptyAsync(int id);
     }
 }

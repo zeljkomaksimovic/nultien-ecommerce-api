@@ -27,10 +27,15 @@ namespace NT.ECommerce.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task EmptyShoppingCart(List<ShoppingCart> shoppingCarts)
+        public async Task RemoveShoppingCartItems(List<ShoppingCart> shoppingCarts)
         {
-             _dbContext.ShoppingCarts.RemoveRange(shoppingCarts);
+            _dbContext.ShoppingCarts.RemoveRange(shoppingCarts);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsShoppingCartEmptyAsync(int id)
+        {
+            return await _dbContext.ShoppingCarts.Where(q => q.CustomerId == id).AnyAsync();
         }
 
     }
