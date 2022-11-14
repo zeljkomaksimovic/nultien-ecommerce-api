@@ -19,13 +19,30 @@ namespace NT.ECommerce.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<ProductDto>> GetAsync(int id)
+        {
+            var customers = await _mediator.Send(new GetProductRequest { Id =id});
+            return Ok(customers);
+        }
+
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ProductDto>>> GetAllAsync()
         {
             var customers = await _mediator.Send(new GetProductsListRequest());
             return Ok(customers);
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CommandResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         [HttpPost]
         public async Task<ActionResult<CommandResponse>> AddAsync([FromBody] CreateProductDto createProductDto)
         {

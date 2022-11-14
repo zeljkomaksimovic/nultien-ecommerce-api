@@ -20,7 +20,19 @@ namespace NT.ECommerce.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<List<CustomerDto>>> GetAsync(int id)
+        {
+            var customers = await _mediator.Send(new GetCustomerRequest { Id = id});
+            return Ok(customers);
+        }
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CustomerDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]     
         public async Task<ActionResult<List<CustomerDto>>> GetAllAsync()
         {
             var customers = await _mediator.Send(new GetCustomersListRequest());
@@ -28,6 +40,9 @@ namespace NT.ECommerce.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CommandResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]      
         public async Task<ActionResult<CommandResponse>> AddAsync([FromBody] CreateCustomerDto createCustomerDto)
         {
             var response = await _mediator.Send(new CreateCustomerCommand { CreateCustomerDto = createCustomerDto });

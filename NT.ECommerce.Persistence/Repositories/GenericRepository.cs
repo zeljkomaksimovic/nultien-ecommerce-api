@@ -26,6 +26,12 @@ namespace NT.ECommerce.Persistence.Repositories
             return entity;
         }
 
+        public async Task<T> GetAsync(int id)
+        {
+            var entity = await _dbContext.Set<T>().FindAsync(id);
+            return entity!;
+        }
+
         public async Task<List<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();

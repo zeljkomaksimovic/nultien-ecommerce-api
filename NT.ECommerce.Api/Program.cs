@@ -24,12 +24,12 @@ builder.Logging.AddSerilog(_logger);
 
 var app = builder.Build();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
-//    await SeedData.Seed(services);
-//}
+    await SeedData.Seed(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -17,8 +17,8 @@ namespace NT.ECommerce.Persistence
     {
         public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<NTECommerceDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("NTECommerceDBConnectionString")));
-            //services.AddDbContext<NTECommerceDbContext>(o => o.UseInMemoryDatabase("NTECommerceDB"));
+            //services.AddDbContext<NTECommerceDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("NTECommerceDBConnectionString")));
+            services.AddDbContext<NTECommerceDbContext>(o => o.UseInMemoryDatabase("NTECommerceDB"));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

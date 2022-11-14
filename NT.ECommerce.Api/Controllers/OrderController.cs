@@ -20,7 +20,21 @@ namespace NT.ECommerce.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrderDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<OrderDto>> GetAsync(int id)
+        {
+            var response = await _mediator.Send(new GetOrderRequest { Id = id });
+
+            return Ok(response);
+        }
+
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<OrderDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<OrderDto>>> GetAllAsync()
         {
             var orders = await _mediator.Send(new GetOrdersListRequest());
@@ -28,10 +42,13 @@ namespace NT.ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CommandResponse>> AddAsync([FromBody] CreateOrderDto createOrderDto)
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OrderCommandResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<OrderCommandResponse>> AddAsync([FromBody] CreateOrderDto createOrderDto)
         {
             var response = await _mediator.Send(new CreateOrdersCommand { CreateOrderDto = createOrderDto });
-            return Created(response);
+            return Ok(response);
         }
     }
 }

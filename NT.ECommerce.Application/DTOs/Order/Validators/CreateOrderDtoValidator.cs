@@ -21,7 +21,8 @@ namespace NT.ECommerce.Application.DTOs.Order.Validators
                 .NotEmpty().WithMessage("{PropertyName} cannot be null.");
 
             RuleFor(o => o.PhoneNumber)
-                .NotEmpty().WithMessage("{PropertyName} cannot be null.");
+                .NotEmpty().WithMessage("{PropertyName} cannot be null.")
+                .Must( o => o!.StartsWith("+")).WithMessage("{PropertyName} must starts with '+' character.");
 
             RuleFor(o => o.CustomerId)
                 .MustAsync(async (id, token) => await customerRepository.ExistsAsync(id)).WithMessage("{PropertyName} does not exist.")

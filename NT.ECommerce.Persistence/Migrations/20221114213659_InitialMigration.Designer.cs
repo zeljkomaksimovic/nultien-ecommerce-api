@@ -12,7 +12,7 @@ using NT.ECommerce.Persistence;
 namespace NT.ECommerce.Persistence.Migrations
 {
     [DbContext(typeof(NTECommerceDbContext))]
-    [Migration("20221112222433_InitialMigration")]
+    [Migration("20221114213659_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

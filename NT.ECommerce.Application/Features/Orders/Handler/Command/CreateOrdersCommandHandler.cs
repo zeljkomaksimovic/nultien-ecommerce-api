@@ -44,12 +44,9 @@ namespace NT.ECommerce.Application.Features.Orders.Handler.Command
             {
                 var order = _mapper.Map<Order>(request.CreateOrderDto);
                 var customerCartItems = await _shoppingCartRepository.GetCustomerCartItems(request.CreateOrderDto.CustomerId);
-
-                //TODO:Moved-> This line of code moved from CalculateDiscount
                 customerCartItems.ForEach(c => order.OrderProducts!.Add(new() { Product = c.Product }));
                 order.Amount = customerCartItems.Sum(x => x.Product!.UnitPrice * x.Quantity);
                 order = CalculateDiscount(order, customerCartItems);
-                //TODO: Check why does not insert data in dbo.OrderProducts
                 order = await _orderRepository.AddAsync(order);
 
                 if (order is not null)
@@ -57,7 +54,6 @@ namespace NT.ECommerce.Application.Features.Orders.Handler.Command
                     await _shoppingCartRepository.RemoveShoppingCartItems(customerCartItems);
 
                     response.Id = order.Id;
-                    //TODO:Add Total amount and discount response properies
                     response.TotalAmount = order.Amount;
                     response.AppliedDiscount = order.AppliedDiscount;
                     response.Success = true;
